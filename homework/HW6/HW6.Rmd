@@ -1,0 +1,51 @@
+---
+title: "HW6"
+author: "Tianqi Wu"
+date: "4/23/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem 5 
+
+## 5(a)
+The value of the loglikelihood under the alternative is -420.5813
+
+## 5(b)
+Under null, common MLE is 0.05756349, value of the loglikelihood is -454.782
+
+## 5(c)
+LRT statistic is 68.40151
+
+## 5(d)
+The dimension under alternative assumption is 2 since we have two free parameters. The dimension under null assumption is 1 since we have one free parameter. The degree of freedom is 1.
+
+## 5(e)
+At 0.05 significance level with degree freedom of 1, chi-square statistic is 5.02. Since LRT statistic is 68.40151 > 5.02. We reject the null hypothesis that pi's are all equal.
+
+```{r}
+## Under alternative
+alpha = -2.79558
+beta_alter = 0.32726
+xi = c(-3,-1,1,3)
+pi_alter = 1/(exp(-alpha-beta_alter*xi)+1)
+cat('pi_alter:', pi_alter, '\n')
+y1 = c(24,35,21,30)
+y0 = c(1355,603,192,224)
+l_alter = sum(y1*log(pi_alter)+y0*log(1-pi_alter))
+cat('l_alter:', l_alter, '\n')
+
+## Under null
+b_null = 0
+pi_null = 1/(exp(-alpha-b_null*xi)+1)
+cat('pi_null:', pi_null, '\n')
+l_null = sum(y1*log(pi_null)+y0*log(1-pi_null))
+cat('l_null:', l_null, '\n')
+
+## LRT
+LRT = 2*(l_alter-l_null)
+cat('LRT:', LRT, '\n')
+```
